@@ -18,21 +18,20 @@ resource "aws_ec2_tag" "private_subnet_karpenter_tags" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "~> 20.33"
 
   cluster_name    = var.cluster_name
-  #cluster_version = "1.32"
+  cluster_version = "1.32"
 
   vpc_id     = var.vpc_id
   subnet_ids = var.private_subnet_ids
 
-  enable_irsa = true
+  enable_irsa         = true
+  authentication_mode = "API_AND_CONFIG_MAP"
 
-  cluster_endpoint_public_access  = !var.is_private_cluster
-  cluster_endpoint_private_access = true
-
-  # we will only allow specific CIDR blocks if public access is enabled
-  cluster_endpoint_public_access_cidrs = var.is_private_cluster ? [] : ["0.0.0.0/0"]
+  cluster_endpoint_public_access           = true
+  cluster_endpoint_private_access          = true
+  enable_cluster_creator_admin_permissions = true
 
   eks_managed_node_groups = {
     initial = {

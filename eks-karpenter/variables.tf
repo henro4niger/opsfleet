@@ -1,7 +1,7 @@
 variable "region" {
   description = "AWS region"
   type        = string
-  default     = "us-west-2"
+  default     = "us-east-1"
 }
 
 variable "cluster_name" {
@@ -13,17 +13,17 @@ variable "cluster_name" {
 variable "vpc_id" {
   description = "ID of the VPC where the cluster will be created"
   type        = string
-  default     = "isf34352343"
+  default     = "vpc-02a00502ebd88a427"
 }
 
 variable "private_subnet_ids" {
   description = "List of private subnet IDs"
   type        = list(string)
-  default     = ["sub-afdjfdk45454", "sub-454dgf"]
+  default     = ["subnet-0bdfc662890f59367", "subnet-080a705d6db263e88"]
 }
 
 variable "is_private_cluster" {
   description = "Whether the cluster should be private (true) or public (false)"
   type        = bool
-  default     = true
+  default     = false
 }
